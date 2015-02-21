@@ -20,7 +20,7 @@ Encoding,picu0,picl0,picu1,picl1,picu2,picl2,picu3,picl3
 0010010,rs1,flush_rs,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved
 0010011,1iid_use,2iid_use,3iid_use,4iid_use,Reserved,sync_intlk,regwin_intlk,Reserved
 0010100,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved
-0010101,Reserved,toq_rsbr_phantom,Reserved,flush_rs,Reserved,rs1,Reserved
+0010101,Reserved,toq_rsbr_phantom,Reserved,flush_rs,Reserved,Reserved,rs1,Reserved
 0010110,trap_all,trap_int_vector,trap_int_level,trap_spill,trap_fill,trap_trap_inst,trap_IMMU_miss,trap_DMMU_miss
 0010111,Reserved,trap_SIMD_load_across_pages,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved
 0011000,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved,Reserved
