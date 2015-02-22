@@ -22,5 +22,5 @@ setup(
     url='http://github.com/halm/pyproffx',
     download_url = 'https://github.com/halm/pyproffx/tarball/0.9',
     setup_requires=['numpy'],
-    keywords=['testing'],
+    keywords=['hpc','profiler'],
 )
