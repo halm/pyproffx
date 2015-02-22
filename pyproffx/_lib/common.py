@@ -131,3 +131,27 @@ def return_val_unit(counter_method):
 
         return res
     return _return_val_unit
+
+
+def monitor_level_checker(counter_method):
+    """This is a decorator function checking monitor level.
+    """
+    def _check_monitor_level(*tag_in):
+        if tag_in[1][0] == 'T':
+            pass
+        elif tag_in[1][0] == 'P':
+            bad_mon_lev = "Monitor level 'Process' is not allowed yet."
+            raise Exception(bad_mon_lev + "Please try 'Thread'.")
+        elif tag_in[1][0] == 'A':
+            bad_mon_lev = "Monitor level 'Application' is not allowed yet."
+            raise Exception(bad_mon_lev + "Please try 'Thread'.")
+        else:
+            print("error")
+
+    @wraps(counter_method)
+    def _monitor_level_checker(*args):
+        """decorator"""
+        _check_monitor_level(*args)
+        res = counter_method(*args)
+        return res
+    return _monitor_level_checker
