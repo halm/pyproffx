@@ -15,7 +15,6 @@ setup(
     package_data={'pyproffx': ['_lib/events.csv']},
     version='0.9',
     description = "A tool set of python modules for profiler on Fujitsu's PRIMEHPC FX10 supercomputer",
-    long_description=LONG_DESCRIPTION,
     author='Haruhiko Matsuo',
     author_email='halm.matsuo@gmail.com',
     license='MIT',
