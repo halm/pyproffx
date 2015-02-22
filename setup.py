@@ -6,8 +6,6 @@
 
 from setuptools import setup, find_packages
 
-with open('README.md') as f:
-    LONG_DESCRIPTION = f.read()
 
 setup(
     name='pyproffx',
