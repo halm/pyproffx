@@ -53,7 +53,7 @@ class Performance(object):
         cycle = self.d.cycle_counts1(*tag)
         cpu_clock = self.e[0][2]
         line_size = 128  # [Byte] L2 cache line
-        trans_byte = L2_miss + L2_wb * line_size
+        trans_byte = (L2_miss + L2_wb) * line_size
         return trans_byte / cycle.astype(float) * cpu_clock / 1.0e3
 
     @monitor_level_checker
