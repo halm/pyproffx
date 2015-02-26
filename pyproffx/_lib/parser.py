@@ -92,7 +92,7 @@ def _main_parser(itr, pa_range_label):
                 # When the number of process is one, process_id is called
                 # before its value is set. To avoid this problem, set zero
                 # as the default value.
-                process_id = '0'
+                process_id = 0
             else:
                 exit()
 
