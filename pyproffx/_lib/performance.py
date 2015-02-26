@@ -19,7 +19,8 @@ class Performance(object):
         self.max_cycle_counts1_per_process = []
         if self.d.is_hybrid or self.d.is_hybrid:
             for i in range(self.d.num_processes):
-                counts = self.d.cycle_counts1('Thread', i, (0, self.d.num_threads))
+                tag = 'Thread', i, (0, self.d.num_threads)
+                counts = self.d.cycle_counts1(*tag)
                 self.max_cycle_counts1_per_process.append(counts.max())
 
         self.max_cycle_counts1_per_application = []
@@ -44,10 +45,11 @@ class Performance(object):
             if self.d.is_hybrid:
                 proc_id = tag[1]
                 if hasattr(proc_id, '__iter__'):
-                    pid_itr = pid_itr = (i for i in xrange(proc_id[0], proc_id[1]))
+                    pid_itr = (i for i in xrange(proc_id[0], proc_id[1]))
                 else:
                     pid_itr = (proc_id,)
-                max_val = [self.max_cycle_counts1_per_process[i] for i in pid_itr]
+                max_val = [self.max_cycle_counts1_per_process[i]
+                           for i in pid_itr]
             elif self.d.is_flatmpi:
                 max_val = self.d.cycle_counts1(*tag)
         elif tag[0][0] == 'A':
