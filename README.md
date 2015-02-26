@@ -22,7 +22,9 @@ the module.
 Before loading yor application's profiling results, you may need
 the label strings.
 
-    >>> fp = '/Users/halm/devel/pa_info/src/example/'
+    >>> %ls ~/path/to/data/
+    output_prof_1.csv    output_prof_2.csv    output_prof_3.csv ...
+    >>> fp = '~/path/to/data/'
     >>> pfx.program_info(fp)
     {'labels': ['__for_accumulate_estimates', '__flip_operator_and_spins'],
      'num_procs': 4,
