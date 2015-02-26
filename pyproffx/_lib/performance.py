@@ -29,7 +29,6 @@ class Performance(object):
         simd_fma = self.d.SIMD_fma_instructions(*tag)
         return f + fma*2 + simd_f*2 + simd_fma*4
 
-    @monitor_level_checker
     def mflops(self, *tag):
         """MFLOPS"""
         flop = self.num_floating_ops(*tag)
@@ -37,7 +36,6 @@ class Performance(object):
         cpu_clock = self.e[0][2]
         return flop / cycle.astype(float) * cpu_clock
 
-    @monitor_level_checker
     def mips(self, *tag):
         """MIPS"""
         cycle = self.d.cycle_counts1(*tag)
@@ -45,7 +43,6 @@ class Performance(object):
         cpu_clock = self.e[0][2]
         return ef_inst / cycle.astype(float) * cpu_clock
 
-    @monitor_level_checker
     def memory_throughput(self, *tag):
         """Memory throughput [GB/sec]"""
         L2_miss = self.d.L2_miss_dm(*tag) + self.d.L2_miss_pf(*tag)
@@ -56,7 +53,6 @@ class Performance(object):
         trans_byte = (L2_miss + L2_wb) * line_size
         return trans_byte / cycle.astype(float) * cpu_clock / 1.0e3
 
-    @monitor_level_checker
     def L2_throughput(self, *tag):
         """L2 throughput [GB/sec]"""
         L1D_miss = self.d.L1D_miss(*tag)

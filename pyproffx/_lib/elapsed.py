@@ -4,7 +4,7 @@
 #  See accompanying file LICENSE or copy at
 #  http://opensource.org/licenses/MIT
 
-from common import return_val_unit
+from common import return_val_unit, monitor_level_checker
 
 
 class ElapsedTime(object):
@@ -12,11 +12,13 @@ class ElapsedTime(object):
         self.e = profenv
         self.d = rawdata
 
+    @monitor_level_checker
     @return_val_unit
     def int_memwait(self, *tag, **keyward):
         """ """
         return self.d.op_stv_wait_sxmiss_ex(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def float_memwait(self, *tag):
         """ """
@@ -24,11 +26,13 @@ class ElapsedTime(object):
         int_l2_wait = self.d.op_stv_wait_sxmiss_ex(*tag)
         return l2_wait - int_l2_wait
 
+    @monitor_level_checker
     @return_val_unit
     def store_wait(self, *tag):
         """ """
         return self.d.cse_window_empty_sp_full(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def int_cachewait(self, *tag):
         """ """
@@ -36,6 +40,7 @@ class ElapsedTime(object):
         l2_wait = self.d.op_stv_wait_sxmiss_ex(*tag)
         return wait - l2_wait
 
+    @monitor_level_checker
     @return_val_unit
     def float_cachewait(self, *tag):
         """ """
@@ -45,6 +50,7 @@ class ElapsedTime(object):
         int_l2_wait = self.d.op_stv_wait_sxmiss_ex(*tag)
         return wait - l2_wait - int_wait + int_l2_wait
 
+    @monitor_level_checker
     @return_val_unit
     def int_opwait(self, *tag):
         """ """
@@ -52,16 +58,19 @@ class ElapsedTime(object):
         eu_comp_wait = self.d.eu_comp_wait(*tag)
         return eu_comp_wait - fl_comp_wait
 
+    @monitor_level_checker
     @return_val_unit
     def float_opwait(self, *tag):
         """ """
         return self.d.fl_comp_wait(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def branch_wait(self, *tag):
         """ """
         return self.d.branch_comp_wait(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def inst_fetch_wait(self, *tag):
         """ """
@@ -70,11 +79,13 @@ class ElapsedTime(object):
         sleep = self.d.sleep_cycle(*tag)
         return cse - cse_sp - sleep
 
+    @monitor_level_checker
     @return_val_unit
     def barrier(self, *tag):
         """ """
         return self.d.sleep_cycle(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def uOPcommit(self, *tag):
         """ """
@@ -85,6 +96,7 @@ class ElapsedTime(object):
         uOPs = inst_flow - (eff_inst + usxar1 + usxar2)
         return uOPs
 
+    @monitor_level_checker
     @return_val_unit
     def other_wait(self, *tag):
         """ """
@@ -101,16 +113,19 @@ class ElapsedTime(object):
         owait = owait - (inst_flow - (eff_inst + usxar1 + usxar2))
         return owait
 
+    @monitor_level_checker
     @return_val_unit
     def end1op(self, *tag):
         """ """
         return self.d.end1op(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def int_wr_wait(self, *tag):
         """ """
         return self.d.inh_cmit_gpr_2write(*tag)
 
+    @monitor_level_checker
     @return_val_unit
     def end2or3op(self, *tag):
         """ """
@@ -119,7 +134,8 @@ class ElapsedTime(object):
         inh = self.d.inh_cmit_gpr_2write(*tag)
         return end2op + end3op - inh
 
-    @return_val_unit    
+    @monitor_level_checker
+    @return_val_unit
     def end4op(self, *tag):
         """ """
         cycle = self.d.cycle_counts1(*tag)

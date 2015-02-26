@@ -137,16 +137,18 @@ def monitor_level_checker(counter_method):
     """This is a decorator function checking monitor level.
     """
     def _check_monitor_level(*tag_in):
-        if tag_in[1][0] == 'T':
-            pass
-        elif tag_in[1][0] == 'P':
-            bad_mon_lev = "Monitor level 'Process' is not allowed yet."
-            raise Exception(bad_mon_lev + "Please try 'Thread'.")
-        elif tag_in[1][0] == 'A':
-            bad_mon_lev = "Monitor level 'Application' is not allowed yet."
-            raise Exception(bad_mon_lev + "Please try 'Thread'.")
-        else:
-            print("error")
+        d = tag_in[0].d  # self.RawDat
+        ml = tag_in[1][0]  # monitor level
+
+        bad_mon_lev = '[Invalid monitor level] '
+        if d.is_hybrid and ml != 'T':
+            raise Exception(bad_mon_lev + 'Use monitor level: Thread.')
+        elif d.is_thread and ml != 'T':
+            raise Exception(bad_mon_lev + 'Use monitor level: Thread.')
+        elif d.is_flatmpi and ml != 'P':
+            raise Exception(bad_mon_lev + 'Use monitor level: Process.')
+        elif d.is_single and ml != 'A':
+            raise Exception(bad_mon_lev + 'Use monitor level: Application.')
 
     @wraps(counter_method)
     def _monitor_level_checker(*args):
