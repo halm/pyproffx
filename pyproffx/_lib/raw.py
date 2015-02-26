@@ -6,12 +6,45 @@
 
 from common import tag_maker, element_wise
 
+
 class RawData(object):
     def __init__(self, parsed_input):
         (self._PA1, self._PA2, self._PA3, self._PA4,
          self._PA5, self._PA6, self._PA7) = (0, 1, 2, 3, 4, 5, 6)
 
         self.PA = parsed_input
+
+        self.has_thread = ('Thread', 0, 0) in self.PA[self._PA1]
+        self.has_process = ('Process', 0) in self.PA[self._PA1]
+        self.num_processes, self.num_threads = self._num_procs_and_threads()
+
+        self.is_hybrid = self.has_thread and self.has_process
+        self.is_thread = self.has_thread and (not self.has_process)
+        self.is_flatmpi = (not self.has_thread) and self.has_process
+        self.is_single = (not self.has_thread) and (not self.has_process)
+
+    def _num_procs_and_threads(self):
+        # Even a sireal program has 1 process at leaset.
+        _num_processes = 1
+        _num_threads = 0
+
+        if self.has_process:
+            _max_process_id = 0
+            for k in self.PA[self._PA1].keys():
+                if k[0] == 'Process':
+                    if k[1] > _max_process_id:
+                        _max_process_id = k[1]
+            _num_processes += _max_process_id
+
+        if self.has_thread:
+            _max_thread_id = 0
+            for k in self.PA[self._PA1].keys():
+                if k[0] == 'Thread':
+                    if k[2] > _max_thread_id:
+                        _max_thread_id = k[2]
+            _num_threads = _max_thread_id + 1
+
+        return _num_processes, _num_threads
 
     def _cycle_counts(self, *tag):
         """ """
