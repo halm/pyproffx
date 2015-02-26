@@ -7,6 +7,7 @@
 """Performance"""
 
 from common import monitor_level_checker
+import numpy as np
 
 
 class Performance(object):
@@ -14,12 +15,6 @@ class Performance(object):
         self.e = profenv
         self.d = rawdata
 
-    @monitor_level_checker
-    def elapsed_time(self, *tag):
-        """Elapsed time [sec]"""
-        cycle = self.d.cycle_counts1(*tag)
-        cpu_clock = self.e[0][2] * 1.0e6
-        return cycle.astype(float) / cpu_clock
 
     def num_floating_ops(self, *tag):
         """Sum of the number of floating operations"""
