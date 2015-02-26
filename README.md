@@ -71,10 +71,3 @@ combination of the PC counters.
     >>> dperf.elapsed_time('T', 0, (0, 8))
     array([ 62.5973813 ,  62.09905636,  61.46894915,  62.87457782,
             61.68163378,  62.35979694,  60.15607663,  60.92197067])
-
-
-## Limitations
-
-The performance and elapsed time functions don't return correct
-values when the monitor level is either of 'Application' or
-'Process'. This defect will be fixed soon in the next release.
