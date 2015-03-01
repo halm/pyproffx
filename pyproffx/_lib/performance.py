@@ -14,53 +14,32 @@ class Performance(object):
     def __init__(self, profenv, rawdata):
         self.e = profenv
         self.d = rawdata
-        max_cycle = {}
-
-        self.max_cycle_counts1_per_process = []
-        if self.d.is_hybrid or self.d.is_hybrid:
-            for i in range(self.d.num_processes):
-                tag = 'Thread', i, (0, self.d.num_threads)
-                counts = self.d.cycle_counts1(*tag)
-                self.max_cycle_counts1_per_process.append(counts.max())
-
-        self.max_cycle_counts1_per_application = []
-        if self.d.is_hybrid:
-            _tmp = self.max_cycle_counts1_per_process
-            self.max_cycle_counts1_per_application = max(_tmp)
-        elif self.d.is_thread:
-            _tmp = self.d.cycle_counts1('Thread', 0, (0, self.d.num_threads))
-            self.max_cycle_counts1_per_application = max(_tmp)
-        elif self.d.is_flatmpi:
-            counts = self.d.cycle_counts1('Process', (0, self.d.num_processes))
-            self.max_cycle_counts1_per_application.append(counts.max())
 
     def max_cycle_counts(self, *tag):
         """ """
-        if tag[0][0] == 'T':
+        label = tag[0][0]
+        if tag[0] != 'A':
+            id = tag[1]
+            if hasattr(id, '__getitem__'):
+                id_itr = (i for i in xrange(id[0], id[1]))
+            else:
+                id_itr = (id,)
+        cpu_freq = self.e[0][2]
+
+        if label == 'T':
             if self.d.is_hybrid:
                 max_val = self.d.cycle_counts1(*tag)
             elif self.d.is_thread:
                 max_val = self.d.cycle_counts1(*tag)
-        elif tag[0][0] == 'P':
+        elif label == 'P':
             if self.d.is_hybrid:
-                proc_id = tag[1]
-                if hasattr(proc_id, '__iter__'):
-                    pid_itr = (i for i in xrange(proc_id[0], proc_id[1]))
-                else:
-                    pid_itr = (proc_id,)
-                max_val = [self.max_cycle_counts1_per_process[i]
-                           for i in pid_itr]
+                max_val = self.d.max_cycle_counts1_per_process
+                max_val = [max_val[id] for id in id_itr]
             elif self.d.is_flatmpi:
                 max_val = self.d.cycle_counts1(*tag)
         elif tag[0][0] == 'A':
-            if self.d.is_hybrid:
-                max_val = max(self.max_cycle_counts1_per_process)
-            elif self.d.is_thread:
-                max_val = max(self.d.cycle_counts1())
-            elif self.d.is_flatmpi:
-                max_val = self.max_cycle_count1_per_application
-            elif self.d.is_single:
-                max_val = self.d.cycle_counts1(*tag)
+            max_val = self.d.max_cycle_counts1_per_application
+
         return np.array(max_val)
 
     def num_floating_ops(self, *tag):
