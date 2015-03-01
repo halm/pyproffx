@@ -4,6 +4,7 @@
 #  See accompanying file LICENSE or copy at
 #  http://opensource.org/licenses/MIT
 
+import os
 import csv
 import parser
 import raw
@@ -24,7 +25,7 @@ def load_pa(filedir, pa_label):
     # read 7 files of PA profiler.
     for id in range(1, 8):
         # TODO use join?
-        fname = filedir + '/' + 'output_prof_' + str(id) + '.csv'
+        fname = os.path.join(filedir, 'output_prof_' + str(id) + '.csv')
         p, d = make_data(fname, pa_label)
 
         prof_env += [p]
