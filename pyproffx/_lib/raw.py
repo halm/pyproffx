@@ -23,6 +23,27 @@ class RawData(object):
         self.is_flatmpi = (not self.has_thread) and self.has_process
         self.is_single = (not self.has_thread) and (not self.has_process)
 
+        self.max_cycle_counts1_per_process = []
+        if self.is_hybrid or self.is_thread:
+            for i in range(self.num_processes):
+                tag = 'Thread', i, (0, self.num_threads)
+                counts = self.cycle_counts1(*tag)
+                self.max_cycle_counts1_per_process.append(counts.max())
+
+        self.max_cycle_counts1_per_application = []
+        if self.is_hybrid:
+            _tmp = self.max_cycle_counts1_per_process
+            self.max_cycle_counts1_per_application = max(_tmp)
+        elif self.is_thread:
+            _tmp = self.cycle_counts1('Thread', 0, (0, self.num_threads))
+            self.max_cycle_counts1_per_application = max(_tmp)
+        elif self.is_flatmpi:
+            counts = self.cycle_counts1('Process', (0, self.num_processes))
+            self.max_cycle_counts1_per_application.append(counts.max())
+        elif self.is_single:
+            counts = self.cycle_counts1('A')
+            self.max_cycle_counts1_per_application.append(counts)
+
     def _num_procs_and_threads(self):
         # Even a sireal program has 1 process at leaset.
         _num_processes = 1
