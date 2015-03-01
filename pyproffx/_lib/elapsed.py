@@ -5,12 +5,40 @@
 #  http://opensource.org/licenses/MIT
 
 from common import return_val_unit, monitor_level_checker
+import numpy as np
 
 
 class ElapsedTime(object):
     def __init__(self, profenv, rawdata):
         self.e = profenv
         self.d = rawdata
+
+    def elapsed_time(self, *tag):
+        """ """
+        label = tag[0][0]
+        if tag[0] != 'A':
+            id = tag[1]
+            if hasattr(id, '__getitem__'):
+                id_itr = (i for i in xrange(id[0], id[1]))
+            else:
+                id_itr = (id,)
+        cpu_freq = self.e[0][2]
+
+        if label == 'T':
+            if self.d.is_hybrid:
+                max_val = self.d.cycle_counts1(*tag)
+            elif self.d.is_thread:
+                max_val = self.d.cycle_counts1(*tag)
+        elif label == 'P':
+            if self.d.is_hybrid:
+                max_val = self.d.max_cycle_counts1_per_process
+                max_val = [max_val[id] for id in id_itr]
+            elif self.d.is_flatmpi:
+                max_val = self.d.cycle_counts1(*tag)
+        elif tag[0][0] == 'A':
+            max_val = self.d.max_cycle_counts1_per_application
+
+        return np.array(max_val).astype(float) / (cpu_freq * 1.0e6)
 
     @monitor_level_checker
     @return_val_unit
