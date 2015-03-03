@@ -13,17 +13,21 @@ First, I strongly recommend that you use this module with
 IPython, which has a powerful interactive shell, featured by
 tab-completion.
 
-If you have installed pyproffx successfuly, you can import
+When you have installed pyproffx successfuly, you can import
 the module.
 
     $ ipython
     >>> import pyproffx as pfx
 
-Before loading yor application's profiling results, you may need
-the label strings.
+If you don't have your profile data, you can find example data sets
+in the source code.
 
-    >>> %ls ~/path/to/data/
+    >>> %ls example/
     output_prof_1.csv    output_prof_2.csv    output_prof_3.csv ...
+
+Before loading profiling results, you may need to know the label
+of the measured region.
+
     >>> fp = '~/path/to/data/'
     >>> pfx.program_info(fp)
     {'labels': ['__for_accumulate_estimates', '__flip_operator_and_spins'],
