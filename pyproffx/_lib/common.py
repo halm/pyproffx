@@ -151,9 +151,9 @@ def monitor_level_checker(counter_method):
             raise Exception(bad_mon_lev + 'Use monitor level: Application.')
 
     @wraps(counter_method)
-    def _monitor_level_checker(*args):
+    def _monitor_level_checker(*args, **kwargs):
         """decorator"""
         _check_monitor_level(*args)
-        res = counter_method(*args)
+        res = counter_method(*args, **kwargs)
         return res
     return _monitor_level_checker
