@@ -319,13 +319,13 @@ class RawData(object):
 
     @tag_maker
     @element_wise
-    def Reserved32(self, *tag):
+    def L1D_miss_swpf(self, *tag):
         """L1D miss swpf"""
         return self.PA[self._PA6][tag]['Reserved32']
 
     @tag_maker
     @element_wise
-    def Reserved31(self, *tag):
+    def L1D_miss_dm(self, *tag):
         """L1D miss dm"""
         return self.PA[self._PA6][tag]['Reserved31']
 
@@ -337,7 +337,7 @@ class RawData(object):
 
     @tag_maker
     @element_wise
-    def Reserved27(self, *tag):
+    def L1D_miss_hwpf(self, *tag):
         """L1D miss hwpf"""
         return self.PA[self._PA6][tag]['Reserved27']
 

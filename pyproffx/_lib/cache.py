@@ -35,21 +35,21 @@ class Cache(object):
     def L1Dmiss_dm_ratio(self, *tag):
         """L1D miss dm / L1D miss"""
         l1d_miss = self.d.L1D_miss(*tag)
-        l1d_miss_dm = self.d.Reserved31(*tag)
+        l1d_miss_dm = self.d.L1D_miss_dm(*tag)
         return l1d_miss_dm / l1d_miss.astype(float) * 100
 
 
     def L1Dmiss_hwpf_ratio(self, *tag):
         """L1D miss hwpf / L1D miss"""
         l1d_miss = self.d.L1D_miss(*tag)
-        l1d_miss_hwpf = self.d.Reserved27(*tag)
+        l1d_miss_hwpf = self.d.L1D_miss_hwpf(*tag)
         return l1d_miss_hwpf / l1d_miss.astype(float) * 100
 
 
     def L1Dmiss_swpf_ratio(self, *tag):
         """L1D miss swpf / L1D miss"""
         l1d_miss = self.d.L1D_miss(*tag)
-        l1d_miss_swpf = self.d.Reserved32(*tag)
+        l1d_miss_swpf = self.d.L1D_miss_swpf(*tag)
         return l1d_miss_swpf / l1d_miss.astype(float) * 100
 
 
