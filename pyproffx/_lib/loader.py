@@ -37,7 +37,7 @@ def load_pa(filedir, pa_label):
 def program_info(filedir, fname='output_prof_1.csv'):
     """Get measured labels"""
 
-    full_path = filedir + fname
+    full_path = os.path.join(filedir, fname)
 
     labels = []
     MONITOR_LEVEL = ''
