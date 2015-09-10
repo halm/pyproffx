@@ -17,15 +17,14 @@ class Cache(object):
 
 
     def L1Imiss_ratio(self, *tag):
-        """ L1I misses / effective instructions"""
+        """L1I misses / effective instructions"""
         l1imiss = self.d.L1I_miss(*tag)
         ef_inst = self.d.effective_instruction_counts(*tag)
         return l1imiss / ef_inst.astype(float) * 100
 
 
     def L1Dmiss_ratio(self, *tag):
-        """Calculate L1 data miss::
-        L1D miss / load-store operations."""
+        """L1D misses / load-store operations"""
         simd_ls = self.d.SIMD_load_store_instructions(*tag)
         ls = self.d.load_store_instructions(*tag)
         l1d_miss = self.d.L1D_miss(*tag)
@@ -33,28 +32,28 @@ class Cache(object):
 
 
     def L1Dmiss_dm_ratio(self, *tag):
-        """L1D miss dm / L1D miss"""
+        """L1D demand misses / L1D misses"""
         l1d_miss = self.d.L1D_miss(*tag)
         l1d_miss_dm = self.d.L1D_miss_dm(*tag)
         return l1d_miss_dm / l1d_miss.astype(float) * 100
 
 
     def L1Dmiss_hwpf_ratio(self, *tag):
-        """L1D miss hwpf / L1D miss"""
+        """L1D hardware prefetch misses / L1D misses"""
         l1d_miss = self.d.L1D_miss(*tag)
         l1d_miss_hwpf = self.d.L1D_miss_hwpf(*tag)
         return l1d_miss_hwpf / l1d_miss.astype(float) * 100
 
 
     def L1Dmiss_swpf_ratio(self, *tag):
-        """L1D miss swpf / L1D miss"""
+        """L1D  software prefetch misses / L1D misses"""
         l1d_miss = self.d.L1D_miss(*tag)
         l1d_miss_swpf = self.d.L1D_miss_swpf(*tag)
         return l1d_miss_swpf / l1d_miss.astype(float) * 100
 
 
     def L2miss_ratio(self, *tag):
-        """L2 miss / load-store"""
+        """L2 misses / load and store instructions"""
         simd_ls = self.d.SIMD_load_store_instructions(*tag)
         ls = self.d.load_store_instructions(*tag)
         l2_miss_dm = self.d.L2_miss_dm(*tag)
@@ -63,21 +62,21 @@ class Cache(object):
 
 
     def L2miss_dm_ratio(self, *tag):
-        """L2 miss dm / L2 miss"""
+        """L2 demand misses / L2 misses"""
         l2_miss_dm = self.d.L2_miss_dm(*tag)
         l2_miss_pf = self.d.L2_miss_pf(*tag)
         return l2_miss_dm / (l2_miss_dm + l2_miss_pf).astype(float) * 100
 
 
     def L2miss_pf_ratio(self, *tag):
-        """L2 miss dm / L2 miss"""
+        """L2 demand misses / L2 misses"""
         l2_miss_dm = self.d.L2_miss_dm(*tag)
         l2_miss_pf = self.d.L2_miss_pf(*tag)
         return l2_miss_pf / (l2_miss_dm + l2_miss_pf).astype(float) * 100
 
 
     def uDTLBmiss_ratio(self, *tag):
-        """uDTLB miss / load-store"""
+        """uDTLB misses / load and store instructions"""
         simd_ls = self.d.SIMD_load_store_instructions(*tag)
         ls = self.d.load_store_instructions(*tag)
         udtlb_miss = self.d.uDTLB_miss(*tag)
@@ -85,7 +84,7 @@ class Cache(object):
 
 
     def mDTLBmiss_ratio(self, *tag):
-        """mDTLB miss / load-store"""
+        """mDTLB misses / load and store instructions"""
         simd_ls = self.d.SIMD_load_store_instructions(*tag)
         ls = self.d.load_store_instructions(*tag)
         dmmu_miss = self.d.trap_DMMU_miss(*tag)
