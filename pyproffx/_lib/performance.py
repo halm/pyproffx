@@ -6,7 +6,7 @@
 
 """Performance"""
 
-from common import monitor_level_checker
+from .common import monitor_level_checker
 import numpy as np
 
 
@@ -21,7 +21,7 @@ class Performance(object):
         if tag[0] != 'A':
             id = tag[1]
             if hasattr(id, '__getitem__'):
-                id_itr = (i for i in xrange(id[0], id[1]))
+                id_itr = (i for i in range(id[0], id[1]))
             else:
                 id_itr = (id,)
         cpu_freq = self.e[0][2]

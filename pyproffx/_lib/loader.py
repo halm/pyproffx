@@ -6,8 +6,8 @@
 
 import os
 import csv
-import parser
-import raw
+from . import parser
+from . import raw
 
 
 def load_pa(filedir, pa_label):

@@ -6,7 +6,7 @@
 
 """Cache"""
 
-from common import monitor_level_checker
+from .common import monitor_level_checker
 import numpy as np
 
 

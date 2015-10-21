@@ -4,7 +4,7 @@
 #  See accompanying file LICENSE or copy at
 #  http://opensource.org/licenses/MIT
 
-from common import tag_maker, element_wise
+from .common import tag_maker, element_wise
 
 
 class RawData(object):

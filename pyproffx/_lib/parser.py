@@ -52,11 +52,11 @@ def _get_profiler_version(line):
 
 
 def _init_parser(itr):
-    ver = _get_profiler_version(itr.next())
-    date = _get_date(itr.next())
-    cpu = _get_cpu_freqency(itr.next())
-    prog_type = _get_type_of_program(itr.next())
-    measured_range = _get_measured_rage(itr.next())
+    ver = _get_profiler_version(next(itr))
+    date = _get_date(next(itr))
+    cpu = _get_cpu_freqency(next(itr))
+    prog_type = _get_type_of_program(next(itr))
+    measured_range = _get_measured_rage(next(itr))
     return (ver, date, cpu, prog_type, measured_range)
 
 

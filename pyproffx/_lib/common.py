@@ -67,14 +67,14 @@ def element_wise(counter_method):
 
         arg_pid = args[2]
         if hasattr(arg_pid, '__iter__'):
-            pid_itr = (i for i in xrange(arg_pid[0], arg_pid[1]))
+            pid_itr = (i for i in range(arg_pid[0], arg_pid[1]))
         else:
             pid_itr = (arg_pid,)
 
         if monitor_level == 'Thread':
             arg_tid = args[3]
             if hasattr(arg_tid, '__iter__'):
-                tid_itr = (i for i in xrange(arg_tid[0], arg_tid[1]))
+                tid_itr = (i for i in range(arg_tid[0], arg_tid[1]))
             else:
                 tid_itr = (arg_tid,)
 
@@ -100,7 +100,7 @@ def element_wise(counter_method):
         elif args[1] == 'Application':
             return np.array(counter_method(*args))
         else:
-            print 'Unknown monitor level'
+            print('Unknown monitor level')
     return _element_wise
 
 
